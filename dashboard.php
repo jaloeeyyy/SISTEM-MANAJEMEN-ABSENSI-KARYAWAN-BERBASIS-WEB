@@ -6,7 +6,6 @@ if (!isset($_SESSION['username'])) { header("Location: index.php"); exit(); }
 
 $msg = ""; $color = "";
 
-// Proses Absen
 if (isset($_POST['absen_sekarang'])) {
     $proses = $auth->submitAbsen($_SESSION['username']);
     if ($proses === true) { $msg = "Berhasil mencatat absensi!"; $color = "success"; }
@@ -14,25 +13,23 @@ if (isset($_POST['absen_sekarang'])) {
     elseif ($proses === "diluar_jam") { $msg = "Gagal! Saat ini berada di luar jadwal absensi."; $color = "danger"; }
 }
 
-// Proses Tambah User
 if (isset($_POST['add_user'])) {
     if($auth->addUser($_POST['username'], $_POST['password'], $_POST['role'], $_POST['nama'], $_POST['divisi'])) {
         $msg = "Karyawan baru berhasil ditambahkan!"; $color = "success";
     } else { $msg = "Gagal! Username sudah digunakan."; $color = "danger"; }
 }
 
-// Proses Edit User
 if (isset($_POST['edit_user'])) {
     $auth->editUser($_POST['id'], $_POST['username'], $_POST['role'], $_POST['nama'], $_POST['divisi']);
     $msg = "Data karyawan berhasil diperbarui!"; $color = "success";
 }
 
-// Proses Hapus User
 if (isset($_POST['delete_user'])) {
     $auth->deleteUser($_POST['id']);
     $msg = "Karyawan berhasil dihapus!"; $color = "success";
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
